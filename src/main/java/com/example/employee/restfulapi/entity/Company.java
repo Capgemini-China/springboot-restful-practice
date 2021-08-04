@@ -1,9 +1,6 @@
 package com.example.employee.restfulapi.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Company {
