@@ -41,4 +41,10 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/male")
+    public ResponseEntity<List<Employee>> getEmployeeByGender() throws Exception {
+        List<Employee> employeeList = employeeRepository.findByGender("male");
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    }
+
 }
