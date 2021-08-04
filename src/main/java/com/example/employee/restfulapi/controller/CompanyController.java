@@ -46,10 +46,25 @@ public class CompanyController {
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/companies")
+    @PostMapping(value = "")
     public ResponseEntity<HttpStatus> addCompany(@RequestBody Company company) throws Exception {
         companyRepository.save(company);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<HttpStatus> updateCompany(@PathVariable Long id, @RequestBody Company newCompany) throws Exception {
+        Company company = companyRepository.getById(id);
+        company.setCompanyName(newCompany.getCompanyName());
+        company.setEmployeesNumber(newCompany.getEmployeesNumber());
+        companyRepository.save(company);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<HttpStatus> deleteCompany(@PathVariable long id) throws Exception {
+        companyRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
