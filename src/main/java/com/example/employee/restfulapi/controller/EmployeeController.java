@@ -20,38 +20,38 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<Employee>> getAllEmployees() throws Exception {
+    public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employeeList = employeeRepository.findAll();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Employee> getCompanyById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Employee> getCompanyById(@PathVariable Long id) {
         Employee employee = employeeRepository.getById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @GetMapping(value = "/page/{page}/pageSize/{pageSize}")
-    public ResponseEntity<Page<Employee>> getEmployeeByPage(@PathVariable int page, @PathVariable int pageSize) throws Exception {
+    public ResponseEntity<Page<Employee>> getEmployeeByPage(@PathVariable int page, @PathVariable int pageSize) {
         Pageable pageable = PageRequest.of(page-1, pageSize);
         Page<Employee> employees = employeeRepository.findAll(pageable);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping(value = "/male")
-    public ResponseEntity<List<Employee>> getEmployeeByGender() throws Exception {
+    public ResponseEntity<List<Employee>> getEmployeeByGender() {
         List<Employee> employeeList = employeeRepository.findByGender("male");
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<HttpStatus> addCompany(@RequestBody Employee employee) throws Exception {
+    public ResponseEntity<HttpStatus> addCompany(@RequestBody Employee employee) {
         employeeRepository.save(employee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<HttpStatus> updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) throws Exception {
+    public ResponseEntity<HttpStatus> updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) {
         Employee employee = employeeRepository.getById(id);
 
         employee.setName(newEmployee.getName());
@@ -65,7 +65,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id) throws Exception {
+    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id) {
         employeeRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
