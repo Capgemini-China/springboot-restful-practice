@@ -3,6 +3,9 @@ package com.example.employee.restfulapi.controller;
 import com.example.employee.restfulapi.entity.Employee;
 import com.example.employee.restfulapi.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,4 +33,12 @@ public class EmployeeController {
         Employee employee = employeeRepository.getById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/page/{page}/pageSize/{pageSize}")
+    public ResponseEntity<Page<Employee>> getEmployeeByPage(@PathVariable int page, @PathVariable int pageSize) throws Exception {
+        Pageable pageable = PageRequest.of(page-1, pageSize);
+        Page<Employee> employees = employeeRepository.findAll(pageable);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
 }
