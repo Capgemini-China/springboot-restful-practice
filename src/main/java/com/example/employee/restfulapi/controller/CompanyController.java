@@ -46,4 +46,10 @@ public class CompanyController {
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/companies")
+    public ResponseEntity<HttpStatus> addCompany(@RequestBody Company company) throws Exception {
+        companyRepository.save(company);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
