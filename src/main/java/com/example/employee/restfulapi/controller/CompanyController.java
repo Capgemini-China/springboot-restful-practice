@@ -16,10 +16,14 @@ public class CompanyController {
     private CompanyRepository companyRepository;
 
     @GetMapping(value = "")
-    public ResponseEntity getCompanies() throws Exception {
-
+    public ResponseEntity<List<Company>> getCompanies() throws Exception {
         List<Company> companyList = companyRepository.findAll();
-
         return new ResponseEntity<>(companyList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id) throws Exception {
+        Company company = companyRepository.getById(id);
+        return new ResponseEntity<>(company, HttpStatus.OK);
     }
 }
