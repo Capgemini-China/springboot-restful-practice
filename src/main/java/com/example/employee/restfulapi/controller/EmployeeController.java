@@ -50,4 +50,18 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<HttpStatus> updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployee) throws Exception {
+        Employee employee = employeeRepository.getById(id);
+
+        employee.setName(newEmployee.getName());
+        employee.setAge(newEmployee.getAge());
+        employee.setGender(newEmployee.getGender());
+        employee.setSalary(newEmployee.getSalary());
+        employee.setCompanyId(newEmployee.getCompanyId());
+
+        employeeRepository.save(employee);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
